@@ -3,6 +3,13 @@ interface FormLogin {
     password: string;
 }
 
+interface FormRegister {
+    email: string;
+    name: string;
+    password: string;
+    passwordConfirmation: string;
+}
+
 interface ILoginSuccessResponse {
     status: string;
     message: string;

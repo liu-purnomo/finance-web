@@ -9,4 +9,14 @@ export class AuthApi {
         });
         return data;
     }
+    static async register(
+        formValues: FormRegister,
+    ): Promise<ILoginSuccessResponse> {
+        const { data } = await instance({
+            method: "POST",
+            url: "api/v1/auth/register",
+            data: formValues,
+        });
+        return data;
+    }
 }
