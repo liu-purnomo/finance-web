@@ -4,6 +4,7 @@ import { Alert } from "@/components/common/alert";
 import { Button } from "@/components/elements";
 import { FieldAuthEmail, FieldAuthPassword } from "@/components/formik/field";
 import { FieldAuthName } from "@/components/formik/field/auth/name";
+import { auth } from "@/components/formik/validation/yup/auth";
 import { useMutation } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useRouter } from "next/navigation";
@@ -37,13 +38,10 @@ const AuthRegisterForm = () => {
     };
 
     const validationSchema = Yup.object().shape({
-        email: Yup.string().required().email().label("Email"),
-        name: Yup.string().required().min(3).max(50).label("Name"),
-        password: Yup.string().required().min(5).max(50).label("Password"),
-        confirmPassword: Yup.string()
-            .required()
-            .oneOf([Yup.ref("password")], "Passwords must match")
-            .label("Confirm Password"),
+        email: auth.email,
+        name: auth.name,
+        password: auth.registerPassword,
+        confirmPassword: auth.confirmPassword,
     });
 
     return (
@@ -58,7 +56,6 @@ const AuthRegisterForm = () => {
                     <FieldAuthName required />
                     <FieldAuthPassword
                         required
-                        isShowForgot
                         isShowConfirm
                         confirmName="confirmPassword"
                     />

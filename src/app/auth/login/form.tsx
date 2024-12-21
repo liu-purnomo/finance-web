@@ -3,6 +3,7 @@ import { AuthApi } from "@/api";
 import { Alert } from "@/components/common/alert";
 import { Button } from "@/components/elements";
 import { FieldAuthEmail, FieldAuthPassword } from "@/components/formik/field";
+import { auth } from "@/components/formik/validation/yup/auth";
 import { useMutation } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { signIn } from "next-auth/react";
@@ -53,8 +54,8 @@ const AuthLoginForm = () => {
     };
 
     const validationSchema = Yup.object().shape({
-        email: Yup.string().required().email().label("Email"),
-        password: Yup.string().required().min(5).max(50).label("Password"),
+        email: auth.email,
+        password: auth.password,
     });
 
     return (
@@ -64,7 +65,7 @@ const AuthLoginForm = () => {
             onSubmit={onSubmit}
         >
             {(formik) => (
-                <Form className="space-y-5 dark:text-white">
+                <Form className="space-y-4 dark:text-white">
                     <FieldAuthEmail />
                     <FieldAuthPassword isShowForgot />
                     <Button loading={formik.isSubmitting} label="Sign in" />
