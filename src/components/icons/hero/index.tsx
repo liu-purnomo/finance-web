@@ -1,0 +1,16 @@
+export * from './bank-notes';
+export * from './book-open';
+export * from './bookmark';
+export { default as IconHeroEducation } from './icon-hero-education';
+export { default as IconHeroEvent } from './icon-hero-event';
+export { default as IconHeroExperience } from './icon-hero-experience';
+export { default as IconHeroExplore } from './icon-hero-explore';
+export { default as IconHeroHome } from './icon-hero-home';
+export { default as IconHeroJob } from './icon-hero-job';
+export { default as IconHeroMapPin } from './icon-hero-map-pin';
+export { default as IconHeroSecurity } from './icon-hero-security';
+export { default as IconHeroShopping } from './icon-hero-shopping';
+export { default as IconHeroStar } from './icon-hero-star';
+export { default as IconHeroTruck } from './icon-hero-truck';
+export { default as IconHeroUser } from './icon-hero-user';
+export { default as IconHeroUsers } from './icon-hero-users';
