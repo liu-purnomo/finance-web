@@ -28,9 +28,9 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
             <div className="panel  my-10 w-full max-w-md bg-main/50 bg-opacity-60 p-3 shadow-md backdrop-blur-sm  ">
                 <div className="flex flex-col justify-center rounded-md ">
                     <div className=" bg-slate-100 ">
-                        <div className="  m-6 text-main">
+                        <div className="  m-6 ">
                             <div className="panel-header">
-                                <div className="flex mb-10 MT-6 justify-center items-center">
+                                <div className="flex mb-5 MT-6 justify-center items-center">
                                     <Image
                                         src="/logo.png"
                                         className="w-16 h-16"

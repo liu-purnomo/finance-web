@@ -9,12 +9,35 @@ export class AuthApi {
         });
         return data;
     }
+
     static async register(
         formValues: FormRegister,
-    ): Promise<ILoginSuccessResponse> {
+    ): Promise<DefaultSuccessResponse> {
         const { data } = await instance({
             method: "POST",
             url: "api/v1/auth/register",
+            data: formValues,
+        });
+        return data;
+    }
+
+    static async verify(
+        formValues: FormVerify,
+    ): Promise<DefaultSuccessResponse> {
+        const { data } = await instance({
+            method: "POST",
+            url: "api/v1/auth/verify",
+            data: formValues,
+        });
+        return data;
+    }
+
+    static async resendCode(formValues: {
+        email: string;
+    }): Promise<DefaultSuccessResponse> {
+        const { data } = await instance({
+            method: "POST",
+            url: "api/v1/auth/resend-code",
             data: formValues,
         });
         return data;

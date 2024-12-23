@@ -27,11 +27,11 @@ const AuthRegisterForm = () => {
     const onSubmit = async (values: any) => {
         try {
             const response: any = await register(values);
+            Alert.default(response?.message);
 
-            const { data, message } = response;
-
-            Alert.success(message);
-            router.replace("/");
+            setTimeout(() => {
+                router.replace("/auth/confirm?email=" + values.email);
+            }, 1000);
         } catch (error: any) {
             Alert.error(error?.response?.data?.message);
         }

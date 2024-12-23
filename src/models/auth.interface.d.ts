@@ -3,6 +3,11 @@ interface FormLogin {
     password: string;
 }
 
+interface FormVerify {
+    email: string;
+    code: string;
+}
+
 interface FormRegister {
     email: string;
     name: string;
