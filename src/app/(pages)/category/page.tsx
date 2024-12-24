@@ -1,12 +1,12 @@
 import { Metadata } from "next";
-import { Dashboard } from "./dashboard/dashboard";
+import { TablePage } from "./tabel";
 
 export const metadata: Metadata = {
-    title: "Dashboard",
+    title: "Category",
 };
 
 const Page = async () => {
-    return <Dashboard />;
+    return <TablePage />;
 };
 
 export default Page;

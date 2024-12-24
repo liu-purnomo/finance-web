@@ -1,8 +1,8 @@
 import { Metadata } from "next";
-import { Dashboard } from "./dashboard/dashboard";
+import { Dashboard } from "./dashboard";
 
 export const metadata: Metadata = {
-    title: "Dashboard",
+    title: "Wallet",
 };
 
 const Page = async () => {

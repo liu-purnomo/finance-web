@@ -55,33 +55,41 @@ export const SelectField: FC<SelectFieldProps> = ({
             ...provided,
             // fontWeight: 400,
             fontSize: "14px",
+            color: isDark ? "light" : "black",
         }),
-        // input: (provided: any) => ({
-        //     ...provided,
-        //     color: isDark ? '#999' : 'black',
-        // }),
-        // control: (provided: any) => ({
-        //     ...provided,
-        //     background: isDark ? '#132136' : '#fff',
-        //     color: isDark ? 'white !important' : 'black !important',
-        //     border: isDark ? 'none' : '0.5 solid #f6f6f6',
-        // }),
+        input: (provided: any) => ({
+            ...provided,
+            color: isDark ? "light" : "black",
+        }),
+        control: (provided: any) => ({
+            ...provided,
+            background: isDark ? "#132136" : "#fff",
+            color: isDark ? "white !important" : "black !important",
+            border: isDark ? "none" : "0.5 solid #f6f6f6",
+        }),
         menu: (provided: any) => ({
             ...provided,
-            // background: isDark ? '#0e1726' : '#fff',
-            // color: isDark ? '#f6f6f6' : '#999',
-            // fontSize: '14px',
+            background: isDark ? "#0e1726" : "#fff",
+            color: isDark ? "#f6f6f6" : "light",
+            fontSize: "14px",
             fontWeight: 400,
         }),
-        // option: (provided: any, state: any) => ({
-        //     ...provided,
-        //     backgroundColor: state.isFocused ? (isDark ? '#132130' : '#f6f6f6') : isDark ? '#0e1726' : '#fff',
-        //     color: isDark ? '#999' : 'black',
-        //     '&:hover': {
-        //         backgroundColor: isDark ? '#0e1726' : '#fff',
-        //         cursor: 'pointer',
-        //     },
-        // }),
+        option: (provided: any, state: any) => ({
+            ...provided,
+            backgroundColor: state.isSelected
+                ? isDark
+                    ? "#4361ee"
+                    : "#2196f3"
+                : state.isFocused
+                  ? isDark
+                      ? "#4361ee"
+                      : "#e7f7ff"
+                  : isDark
+                    ? "dark"
+                    : "light",
+
+            color: isDark ? "light" : "black",
+        }),
         menuPortal: (base: any) => ({ ...base, zIndex: 999 }),
     };
 
