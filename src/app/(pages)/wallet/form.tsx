@@ -112,8 +112,9 @@ export const WalletForm = ({
                                         />
                                         <Field
                                             name="balance"
-                                            label="Initial Balance"
+                                            label="Balance"
                                             type="qty"
+                                            disabled={data?.id ? true : false}
                                         />
                                     </div>
                                     <div>

@@ -1,4 +1,5 @@
 import { TransactionApi } from "@/api";
+import { DateFormat } from "@/utilities/functions/format/date";
 import { NumberFormat } from "@/utilities/functions/format/number";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
@@ -29,7 +30,7 @@ export const TransactionCard = () => {
                             className="hover:bg-slate-100 hover:dark:bg-slate-800 rounded px-2 py-3"
                         >
                             <div className="flex">
-                                <span>
+                                <span className="grid h-9 w-9 shrink-0 place-content-center rounded-md bg-white dark:bg-black border shadow-sm">
                                     <CategoryIcon
                                         icon={transaction?.Category?.icon}
                                     />
@@ -40,7 +41,10 @@ export const TransactionCard = () => {
                                         {transaction?.description}
                                     </div>
                                     <div className="text-xs text-white-dark dark:text-gray-500">
-                                        {transaction?.Category?.name}
+                                        {DateFormat.dmY(
+                                            transaction.transactionDate,
+                                        )}{" "}
+                                        - {transaction?.Category?.name}
                                     </div>
                                 </div>
                                 <span

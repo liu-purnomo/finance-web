@@ -19,6 +19,23 @@ export class TransactionApi {
         return data;
     }
 
+    static async summary(params: any) {
+        const paramsActual = {} as any;
+
+        Object.keys(params)?.forEach((key) => {
+            if (params[key]) {
+                paramsActual[key] = params[key];
+            }
+        });
+
+        const { data } = await instance({
+            method: "GET",
+            url: `api/v1/finance/transaction/summary-all?${queryString.stringify(paramsActual)}`,
+        });
+
+        return data;
+    }
+
     static async create(formValues: FormCreateTransaction): Promise<any> {
         const { data } = await instance({
             method: "POST",

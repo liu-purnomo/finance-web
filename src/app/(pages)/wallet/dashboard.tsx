@@ -22,6 +22,11 @@ export const Dashboard = () => {
     const [showForm, setShowForm] = useState<boolean>(false);
     const [dataToEdit, setDataToEdit] = useState<any>();
 
+    const { data: wallets, refetch } = useQuery({
+        queryKey: ["listWallets"],
+        queryFn: () => WalletApi.index({}),
+    });
+
     const handleOnSubmitForm = () => {
         setShowForm(false);
         setDataToEdit(null);
@@ -74,11 +79,6 @@ export const Dashboard = () => {
         });
     };
 
-    const { data: wallets, refetch } = useQuery({
-        queryKey: ["wallets"],
-        queryFn: () => WalletApi.index({}),
-    });
-
     return (
         <div>
             <div className="panel h-full">
@@ -94,12 +94,13 @@ export const Dashboard = () => {
                         />
                     </div>
                 </div>
-                <div className="space-y-6">
+                <div className="">
                     {wallets?.data?.map((wallet: WalletsProps) => {
                         return (
                             <div
                                 key={wallet.id}
                                 onClick={() => handleEditData(wallet)}
+                                className="hover:bg-slate-100 hover:dark:bg-slate-800 cursor-pointer rounded px-2 py-3"
                             >
                                 <WalletList data={wallet} />
                             </div>

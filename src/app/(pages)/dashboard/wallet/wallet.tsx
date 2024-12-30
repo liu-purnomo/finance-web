@@ -1,3 +1,4 @@
+"use client";
 import { WalletApi } from "@/api";
 import { walletLogo } from "@/utilities/constants/options";
 import { useQuery } from "@tanstack/react-query";
