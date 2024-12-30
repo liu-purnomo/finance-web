@@ -2,12 +2,12 @@
 import { CategoryApi } from "@/api";
 import { Alert } from "@/components/common/alert";
 import { Button } from "@/components/elements";
-import { Field, SelectField } from "@/components/formik/field";
+import { Field } from "@/components/formik/field";
 import { Modal } from "@/components/modal/default-modal";
 import { useMutation } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
-import { CategoryIcon, iconList } from "./icon";
+import { IconModal } from "./iconModal";
 
 interface CategoryFormProps {
     data?: any;
@@ -110,29 +110,13 @@ export const CategoryForm = ({
                                 </button>
                             </div>
 
-                            <div className="w-full">
-                                <SelectField
-                                    name="icon"
-                                    options={
-                                        iconList?.map(
-                                            (icon: string, index: number) => {
-                                                return {
-                                                    label: (
-                                                        <CategoryIcon
-                                                            icon={icon}
-                                                        />
-                                                    ),
-                                                    value: icon,
-                                                };
-                                            },
-                                        ) as any
-                                    }
-                                />
-                                <Field
-                                    name="name"
-                                    label="Category Name"
-                                    required
-                                />
+                            <div className="w-full flex items-center gap-4">
+                                <div>
+                                    <IconModal />
+                                </div>
+                                <div className="w-full">
+                                    <Field name="name" required />
+                                </div>
                             </div>
 
                             <Button

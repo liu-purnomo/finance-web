@@ -11,6 +11,7 @@ import { useCallback, useMemo, useState } from "react";
 import { BsPlusCircle } from "react-icons/bs";
 import "tippy.js/dist/tippy.css";
 import { CategoryForm } from "./form";
+import { CategoryIcon } from "./icon";
 
 export const TablePage = () => {
     const {
@@ -74,11 +75,18 @@ export const TablePage = () => {
             {
                 accessorKey: "name",
                 header: "Name",
-                Cell: ({ row }) => <div>{row?.original?.name}</div>,
+                Cell: ({ row }) => (
+                    <div className="flex items-center gap-2">
+                        <div className="w-8 h-8">
+                            <CategoryIcon icon={row?.original?.icon} />
+                        </div>
+                        <div>{row?.original?.name}</div>
+                    </div>
+                ),
             },
             {
-                accessorKey: "icon",
-                header: "Icon",
+                accessorKey: "type",
+                header: "Type",
             },
         ],
         [],
