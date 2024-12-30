@@ -132,7 +132,7 @@ const Sidebar = () => {
 
                             <h2 className="-mx-4 mb-2 mt-4 flex items-center bg-white-light/30 px-7 py-3 font-extrabold uppercase dark:bg-dark dark:bg-opacity-[0.08]">
                                 <MinusIcon className="hidden h-5 w-4 flex-none" />
-                                <span>WALLET</span>
+                                <span>FINANCE</span>
                             </h2>
 
                             <li className="nav-item">
@@ -179,6 +179,17 @@ const Sidebar = () => {
                                 </Link>
                             </li>
 
+                            <li className="nav-item">
+                                <Link href="/category" className="group">
+                                    <div className="flex items-center">
+                                        <FolderOpenIcon className="shrink-0 group-hover:!text-primary" />
+                                        <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">
+                                            Category
+                                        </span>
+                                    </div>
+                                </Link>
+                            </li>
+
                             <li>
                                 <div className="my-5"></div>
                             </li>
@@ -204,16 +215,6 @@ const Sidebar = () => {
                                         <IconSettings className="shrink-0 group-hover:!text-primary" />
                                         <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">
                                             Settings
-                                        </span>
-                                    </div>
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link href="#" className="group">
-                                    <div className="flex items-center">
-                                        <FolderOpenIcon className="shrink-0 group-hover:!text-primary" />
-                                        <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">
-                                            Archive
                                         </span>
                                     </div>
                                 </Link>

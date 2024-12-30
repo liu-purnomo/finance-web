@@ -1,12 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { CategoryApi } from "@/api";
+import { Alert } from "@/components/common/alert";
 import Table from "@/components/common/table";
 import { useMemoQuery } from "@/utilities/hooks/useMemoQuery";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import Tippy from "@tippyjs/react";
 import { MRT_ColumnDef } from "mantine-react-table";
-import Link from "next/link";
 import { useCallback, useMemo, useState } from "react";
 import { BsPlusCircle } from "react-icons/bs";
 import "tippy.js/dist/tippy.css";
@@ -56,37 +57,69 @@ export const TablePage = () => {
         }, 10);
     }, []);
 
+    const { mutateAsync: deleteCategory } = useMutation({
+        mutationFn: CategoryApi.delete,
+    });
+
+    const handleDeleteData = async (id: string) => {
+        try {
+            await deleteCategory(id);
+            refetch();
+            Alert.default("Data deleted successfully");
+        } catch (error: any) {
+            console.error(error);
+        }
+    };
+
+    const confirmDelete = (id: string) => {
+        Alert.confirm({
+            callback() {
+                handleDeleteData(id);
+            },
+        });
+    };
+
     const columns = useMemo<MRT_ColumnDef<any>[]>(
         () => [
             {
-                accessorKey: "id",
-                header: "ID",
+                accessorKey: "icon",
+                header: "Icon",
                 Cell: ({ row }) => (
-                    <div className="">
-                        <Link
-                            className="text-primary  font-semibold cursor-pointer"
-                            href={`/asset/${row?.original?.id}`}
-                        >
-                            {row?.original?.id}
-                        </Link>
+                    <div className="w-8 h-8">
+                        {row?.original?.icon && (
+                            <CategoryIcon icon={row?.original?.icon} />
+                        )}
                     </div>
                 ),
             },
             {
                 accessorKey: "name",
                 header: "Name",
-                Cell: ({ row }) => (
-                    <div className="flex items-center gap-2">
-                        <div className="w-8 h-8">
-                            <CategoryIcon icon={row?.original?.icon} />
-                        </div>
-                        <div>{row?.original?.name}</div>
-                    </div>
-                ),
             },
             {
                 accessorKey: "type",
                 header: "Type",
+            },
+            {
+                accessorKey: "action",
+                header: "Action",
+                Cell: ({ row }) => (
+                    <div className="flex items-center justify-center gap-2">
+                        <button
+                            onClick={() => handleEditData(row?.original)}
+                            className="btn btn-outline-success btn-sm"
+                            type="button"
+                        >
+                            Edit
+                        </button>
+                        <button
+                            onClick={() => confirmDelete(row?.original?.id)}
+                            className="btn btn-outline-danger btn-sm"
+                        >
+                            Delete
+                        </button>
+                    </div>
+                ),
             },
         ],
         [],

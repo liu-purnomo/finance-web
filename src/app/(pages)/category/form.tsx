@@ -23,18 +23,23 @@ export const CategoryForm = ({
     setShowModal,
 }: CategoryFormProps) => {
     const initialValues = {
-        icon: "wallet",
-        name: "",
-        type: "INCOME",
+        id: data?.id || "",
+        icon: data?.icon || "wallet",
+        name: data?.name || "",
+        type: data?.type || "INCOME",
     };
 
     const { mutateAsync: create } = useMutation({
         mutationFn: CategoryApi.create,
     });
 
+    const { mutateAsync: edit } = useMutation({
+        mutationFn: CategoryApi.update,
+    });
+
     const onSubmit = async (values: any) => {
         try {
-            const response: any = await create(values);
+            const response = data ? await edit(values) : await create(values);
             Alert.default(response?.message);
             onSubmitForm(values);
             setShowModal(false);

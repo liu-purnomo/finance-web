@@ -27,4 +27,21 @@ export class CategoryApi {
         });
         return data;
     }
+
+    static async update(formValues: FormCreateCategory): Promise<any> {
+        const { data } = await instance({
+            method: "PUT",
+            url: "api/v1/finance/category/" + formValues.id,
+            data: formValues,
+        });
+        return data;
+    }
+
+    static async delete(id: string): Promise<any> {
+        const { data } = await instance({
+            method: "DELETE",
+            url: "api/v1/finance/category/" + id,
+        });
+        return data;
+    }
 }
