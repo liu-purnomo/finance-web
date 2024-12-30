@@ -1,3 +1,5 @@
+import { IRootState } from "@/stores";
+import { MantineProvider, useMantineTheme } from "@mantine/core";
 import {
     MRT_ColumnDef,
     MRT_GlobalFilterTextInput,
@@ -10,6 +12,7 @@ import {
     useMantineReactTable,
 } from "mantine-react-table";
 import { BsTrash } from "react-icons/bs";
+import { useSelector } from "react-redux";
 
 type TableOptions = Omit<MRT_TableOptions<any>, "data" | "columns">;
 
@@ -28,6 +31,11 @@ export default function Table({
     customButton?: React.ReactNode;
     tableName?: string;
 }) {
+    const globalTheme = useMantineTheme();
+    const isDark = useSelector(
+        (state: IRootState) => state.themeConfig.isDarkMode,
+    );
+
     const table = useMantineReactTable({
         columns,
         data: data ? data : [],
@@ -67,7 +75,7 @@ export default function Table({
             }
 
             return (
-                <div className="flex justify-between py-2 bg-white border-b">
+                <div className="flex justify-between py-2 bg-white dark:bg-black border-b">
                     <div>
                         <div className="ms-4 flex items-center gap-2">
                             {tableName && (
@@ -103,5 +111,14 @@ export default function Table({
         ...tableOptions,
     });
 
-    return <MantineReactTable table={table} />;
+    return (
+        <MantineProvider
+            theme={{
+                ...globalTheme,
+                colorScheme: isDark ? "dark" : "light",
+            }}
+        >
+            <MantineReactTable table={table} />
+        </MantineProvider>
+    );
 }
