@@ -27,4 +27,21 @@ export class TransactionApi {
         });
         return data;
     }
+
+    static async update(formValues: FormCreateTransaction): Promise<any> {
+        const { data } = await instance({
+            method: "PUT",
+            url: "api/v1/finance/transaction/" + formValues.id,
+            data: formValues,
+        });
+        return data;
+    }
+
+    static async delete(id: string): Promise<any> {
+        const { data } = await instance({
+            method: "DELETE",
+            url: "api/v1/finance/transaction/" + id,
+        });
+        return data;
+    }
 }

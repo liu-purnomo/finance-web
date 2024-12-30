@@ -29,4 +29,31 @@ export class WalletApi {
         });
         return data;
     }
+
+    static async update(
+        formValues: FormCreateWallet,
+    ): Promise<DefaultSuccessResponse> {
+        const { data } = await instance({
+            method: "PUT",
+            url: `api/v1/finance/wallet/${formValues.id}`,
+            data: formValues,
+        });
+        return data;
+    }
+
+    static async delete(id: string) {
+        const { data } = await instance({
+            method: "DELETE",
+            url: "api/v1/finance/wallet/" + id,
+        });
+        return data;
+    }
+
+    static async getAll(): Promise<any> {
+        const { data } = await instance({
+            method: "GET",
+            url: "api/v1/finance/wallet/get-all",
+        });
+        return data;
+    }
 }

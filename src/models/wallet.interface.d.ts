@@ -1,4 +1,5 @@
 interface FormCreateWallet {
+    id: string;
     type: string;
     name: string;
     currency: string; // e.g., 'USD', 'IDR', etc.

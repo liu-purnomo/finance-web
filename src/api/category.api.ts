@@ -44,4 +44,13 @@ export class CategoryApi {
         });
         return data;
     }
+
+    static async getAll(): Promise<any> {
+        const { data } = await instance({
+            method: "GET",
+            url: "api/v1/finance/category/get-all",
+        });
+
+        return data;
+    }
 }

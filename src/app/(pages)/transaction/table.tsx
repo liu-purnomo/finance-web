@@ -1,20 +1,19 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import { CategoryApi } from "@/api";
-import { Alert } from "@/components/common/alert";
+import { TransactionApi } from "@/api";
 import Table from "@/components/common/table";
+import { DateFormat } from "@/utilities/functions/format/date";
+import { NumberFormat } from "@/utilities/functions/format/number";
 import { useMemoQuery } from "@/utilities/hooks/useMemoQuery";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import Tippy from "@tippyjs/react";
 import { MRT_ColumnDef } from "mantine-react-table";
 import { useCallback, useMemo, useState } from "react";
 import { BsPlusCircle } from "react-icons/bs";
 import "tippy.js/dist/tippy.css";
-import { CategoryForm } from "./form";
-import { CategoryIcon } from "./icon";
+import { FormCreate } from "./form";
 
-export const TablePage = () => {
+export const DataTable = () => {
     const {
         columnFilter,
         globalFilter,
@@ -30,7 +29,7 @@ export const TablePage = () => {
 
     const { data, refetch, isRefetching, isLoading, isError } = useQuery({
         queryKey: ["CategoriesData", memoQuery],
-        queryFn: () => CategoryApi.index(memoQuery),
+        queryFn: () => TransactionApi.index(memoQuery),
     });
 
     const [showForm, setShowForm] = useState<boolean>(false);
@@ -57,67 +56,49 @@ export const TablePage = () => {
         }, 10);
     }, []);
 
-    const { mutateAsync: deleteCategory } = useMutation({
-        mutationFn: CategoryApi.delete,
-    });
-
-    const handleDeleteData = async (id: string) => {
-        try {
-            const response = await deleteCategory(id);
-            refetch();
-            Alert.success(response?.message);
-        } catch (error: any) {
-            Alert.error(error?.response?.data?.message);
-        }
-    };
-
-    const confirmDelete = (id: string) => {
-        Alert.confirm({
-            callback() {
-                handleDeleteData(id);
-            },
-        });
-    };
-
-    const columns = useMemo<MRT_ColumnDef<any>[]>(
+    const columns = useMemo<MRT_ColumnDef<Transaction>[]>(
         () => [
             {
-                accessorKey: "icon",
-                header: "Icon",
+                accessorKey: "transactionDate",
+                header: "Date",
                 Cell: ({ row }) => (
-                    <div className="w-8 h-8">
-                        {row?.original?.icon && (
-                            <CategoryIcon icon={row?.original?.icon} />
-                        )}
+                    <div className="">
+                        {DateFormat.dmY(row?.original?.transactionDate)}
                     </div>
                 ),
             },
             {
-                accessorKey: "name",
-                header: "Name",
+                accessorKey: "category",
+                header: "Category",
+                Cell: ({ row }) => (
+                    <div className="">{row?.original?.Category?.name}</div>
+                ),
             },
             {
                 accessorKey: "type",
                 header: "Type",
+                Cell: ({ row }) => (
+                    <div className="">{row?.original?.Category?.type}</div>
+                ),
             },
             {
-                accessorKey: "action",
-                header: "Action",
+                accessorKey: "wallet",
+                header: "Wallet",
                 Cell: ({ row }) => (
-                    <div className="flex items-center justify-center gap-2">
-                        <button
-                            onClick={() => handleEditData(row?.original)}
-                            className="btn btn-outline-success btn-sm"
-                            type="button"
-                        >
-                            Edit
-                        </button>
-                        <button
-                            onClick={() => confirmDelete(row?.original?.id)}
-                            className="btn btn-outline-danger btn-sm"
-                        >
-                            Delete
-                        </button>
+                    <div className="">{row?.original?.Wallet?.name}</div>
+                ),
+            },
+            {
+                accessorKey: "amount",
+                header: "Amount",
+                Cell: ({ row }) => (
+                    <div className="flex justify-between">
+                        <div>{row?.original?.Wallet?.currency}</div>
+                        <div>
+                            {NumberFormat.amount(
+                                Number(row?.original?.amount || 0),
+                            )}
+                        </div>
                     </div>
                 ),
             },
@@ -127,19 +108,16 @@ export const TablePage = () => {
 
     return (
         <div>
-            <div>
-                {showForm && (
-                    <CategoryForm
-                        data={dataToEdit}
-                        onSubmitForm={handleOnSubmitForm}
-                        setShowModal={handleOnCloseForm}
-                        showModal={showForm}
-                    />
-                )}
-            </div>
+            <FormCreate
+                onSubmitForm={handleOnSubmitForm}
+                setShowModal={setShowForm}
+                showModal={showForm}
+                data={null}
+            />
+
             <Table
-                tableName="Category"
-                columns={columns}
+                tableName="Transaction"
+                columns={columns as any}
                 data={data?.data}
                 customButton={
                     <Tippy content="Add Data" placement="top-end">

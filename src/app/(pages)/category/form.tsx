@@ -40,7 +40,7 @@ export const CategoryForm = ({
     const onSubmit = async (values: any) => {
         try {
             const response = data ? await edit(values) : await create(values);
-            Alert.default(response?.message);
+            Alert.success(response?.message);
             onSubmitForm(values);
             setShowModal(false);
         } catch (error: any) {

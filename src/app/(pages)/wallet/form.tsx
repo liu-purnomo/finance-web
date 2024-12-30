@@ -10,37 +10,52 @@ import {
 } from "@/utilities/constants/options";
 import { useMutation } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
-import { useState } from "react";
 import * as Yup from "yup";
 
 interface WalletFormProps {
+    data?: any;
     onSubmitForm: (values: any) => void;
+    showModal: boolean;
+    setShowModal: (values: boolean) => void;
+    confirmDelete: (values: string) => void;
 }
 
-export const WalletForm = ({ onSubmitForm }: WalletFormProps) => {
-    const [showModal, setShowModal] = useState(false);
-
+export const WalletForm = ({
+    data,
+    onSubmitForm,
+    showModal,
+    setShowModal,
+    confirmDelete,
+}: WalletFormProps) => {
     const initialValues = {
-        type: "",
-        name: "",
-        currency: "IDR",
-        balance: 0,
-        description: "",
+        id: data?.id || "",
+        type: data?.type || "",
+        name: data?.name || "",
+        currency: data?.currency || "IDR",
+        balance: data?.balance || 0,
+        description: data?.description || "",
     };
 
     const { mutateAsync: create } = useMutation({
         mutationFn: WalletApi.create,
     });
+    const { mutateAsync: update } = useMutation({
+        mutationFn: WalletApi.update,
+    });
 
     const onSubmit = async (values: any) => {
         try {
-            const response: any = await create(values);
-            Alert.default(response?.message);
+            const response = data ? await update(values) : await create(values);
+            Alert.success(response?.message);
             onSubmitForm(values);
             setShowModal(false);
         } catch (error: any) {
             Alert.error(error?.response?.data?.message);
         }
+    };
+
+    const onDelete = () => {
+        confirmDelete(data?.id);
     };
 
     const validationSchema = Yup.object().shape({
@@ -108,6 +123,14 @@ export const WalletForm = ({ onSubmitForm }: WalletFormProps) => {
                                             type="textarea"
                                         />
                                     </div>
+                                    {data?.id && (
+                                        <Button
+                                            onClick={onDelete}
+                                            color="btn-outline-danger"
+                                            type="button"
+                                            label="Delete"
+                                        />
+                                    )}
                                     <Button
                                         loading={formik.isSubmitting}
                                         label="Submit"

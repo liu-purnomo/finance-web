@@ -6,12 +6,15 @@ export const WalletList = ({ data }: { data: WalletsProps }) => {
     return (
         <div className="flex">
             <span className="grid h-9 w-9 shrink-0 place-content-center rounded-md bg-white border shadow-sm">
-                <Image
-                    src={`/assets/logo/${walletLogo(data?.name)}`}
-                    alt="wallet"
-                    width={24}
-                    height={24}
-                />
+                {data?.name && (
+                    <Image
+                        src={`/assets/logo/${walletLogo(data?.name)}`}
+                        alt="wallet"
+                        width={24}
+                        height={24}
+                        className=""
+                    />
+                )}
             </span>
             <div className="flex-1 px-3">
                 <div className="font-bold">{data?.name}</div>
