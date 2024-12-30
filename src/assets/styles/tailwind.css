@@ -733,9 +733,6 @@ img.dark-img {
     @apply !block;
 }
 
-#mantine-m2zbh442x-label
-    .mantine-InputWrapper-label
-    .mantine-Select-label
-    .mantine-1fzet7j {
-    display: none;
+.mantine-1fzet7j {
+    @apply !hidden;
 }

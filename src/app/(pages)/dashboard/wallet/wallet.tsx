@@ -2,7 +2,7 @@ import { WalletApi } from "@/api";
 import { walletLogo } from "@/utilities/constants/options";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
-import { WalletForm } from "./form";
+import Link from "next/link";
 
 export interface WalletsProps {
     id: string;
@@ -19,16 +19,18 @@ export interface WalletsProps {
 export const WalletList = () => {
     const { data: wallets, refetch } = useQuery({
         queryKey: ["wallets"],
-        queryFn: () => WalletApi.index({}),
+        queryFn: () => WalletApi.index({ size: 3 }),
     });
 
     return (
         <div className="panel h-full">
             <div className="mb-4 flex items-center justify-between dark:text-white-light">
-                <h5 className="text-lg font-semibold">Wallets</h5>
-                <div>
-                    <WalletForm onSubmitForm={() => refetch()} />
-                </div>
+                <h5 className="text-lg font-semibold">My Wallets</h5>
+                <Link href={"/wallet"}>
+                    <button className="btn btn-outline-primary" type="button">
+                        See All
+                    </button>
+                </Link>
             </div>
             <hr className="mb-5" />
             <div className="space-y-6">

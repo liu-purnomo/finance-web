@@ -1,65 +1,55 @@
-import { WalletApi } from "@/api";
-import { walletLogo } from "@/utilities/constants/options";
+import { TransactionApi } from "@/api";
+import { NumberFormat } from "@/utilities/functions/format/number";
 import { useQuery } from "@tanstack/react-query";
-import Image from "next/image";
-import { TransactionForm } from "./form";
-
-export interface WalletsProps {
-    id: string;
-    type: string;
-    name: string;
-    balance: number;
-    currency: string;
-    description: string | null;
-    userId: string;
-    createdAt: Date;
-    updatedAt: Date;
-}
+import Link from "next/link";
+import CategoryIcon from "../../../../assets/icons/catagoryIcon";
 
 export const TransactionCard = () => {
-    const { data: wallets, refetch } = useQuery({
-        queryKey: ["wallets"],
-        queryFn: () => WalletApi.index({}),
+    const { data: transactions, refetch } = useQuery({
+        queryKey: ["transactionDashboard"],
+        queryFn: () => TransactionApi.index({}),
     });
 
     return (
         <div className="panel h-full">
             <div className="mb-4 flex items-center justify-between dark:text-white-light">
-                <h5 className="text-lg font-semibold">Wallets</h5>
-                <div>
-                    <TransactionForm onSubmitForm={() => refetch()} />
-                </div>
+                <h5 className="text-lg font-semibold">Latest Transactions</h5>
+                <Link href={"/transaction"}>
+                    <button className="btn btn-outline-primary" type="button">
+                        See All
+                    </button>
+                </Link>
             </div>
             <hr className="mb-5" />
-            <div className="space-y-6">
-                {wallets?.data?.map((wallet: WalletsProps) => {
+            <div className="">
+                {transactions?.data?.map((transaction: Transaction) => {
                     return (
-                        <div key={wallet.id}>
+                        <div
+                            key={transaction.id}
+                            className="hover:bg-slate-100 hover:dark:bg-slate-800 rounded px-2 py-3"
+                        >
                             <div className="flex">
-                                <span className="grid h-9 w-9 shrink-0 place-content-center rounded-md bg-white border shadow-sm">
-                                    <Image
-                                        src={`/assets/logo/${walletLogo(wallet?.name)}`}
-                                        alt="wallet"
-                                        width={24}
-                                        height={24}
+                                <span>
+                                    <CategoryIcon
+                                        icon={transaction?.Category?.icon}
                                     />
                                 </span>
+
                                 <div className="flex-1 px-3">
                                     <div className="font-bold">
-                                        {wallet?.name}
+                                        {transaction?.description}
                                     </div>
                                     <div className="text-xs text-white-dark dark:text-gray-500">
-                                        {wallet?.type}
+                                        {transaction?.Category?.name}
                                     </div>
                                 </div>
-                                <span className="whitespace-pre px-1 text-base text-primary ltr:ml-auto rtl:mr-auto">
-                                    {wallet?.currency}{" "}
-                                    {Number(
-                                        wallet?.balance || 0,
-                                    )?.toLocaleString("id-ID", {
-                                        minimumFractionDigits: 2,
-                                        maximumFractionDigits: 2,
-                                    })}
+                                <span
+                                    className={`whitespace-pre px-1 text-base ${transaction?.Category?.type === "EXPENSE" ? "text-danger" : "text-success"} ltr:ml-auto rtl:mr-auto`}
+                                >
+                                    {transaction?.Wallet?.currency}{" "}
+                                    {NumberFormat.amount(
+                                        Number(transaction?.amount || 0),
+                                    )}
                                 </span>
                             </div>
                         </div>

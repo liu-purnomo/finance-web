@@ -2,6 +2,7 @@
 "use client";
 
 import { CategoryApi } from "@/api";
+import CategoryIcon from "@/assets/icons/catagoryIcon";
 import { Alert } from "@/components/common/alert";
 import Table from "@/components/common/table";
 import { useMemoQuery } from "@/utilities/hooks/useMemoQuery";
@@ -12,7 +13,6 @@ import { useCallback, useMemo, useState } from "react";
 import { BsPlusCircle } from "react-icons/bs";
 import "tippy.js/dist/tippy.css";
 import { CategoryForm } from "./form";
-import { CategoryIcon } from "./icon";
 
 export const TablePage = () => {
     const {
@@ -87,7 +87,9 @@ export const TablePage = () => {
                 Cell: ({ row }) => (
                     <div className="w-8 h-8">
                         {row?.original?.icon && (
-                            <CategoryIcon icon={row?.original?.icon} />
+                            <div className="text-[darkblue] w-8 h-8 rounded-full bg-blue-100  flex justify-center items-center">
+                                <CategoryIcon icon={row?.original?.icon} />
+                            </div>
                         )}
                     </div>
                 ),

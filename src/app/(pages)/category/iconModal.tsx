@@ -1,8 +1,8 @@
 "use client";
+import CategoryIcon, { iconList } from "@/assets/icons/catagoryIcon";
 import { Modal } from "@/components/modal/default-modal";
 import { useFormikContext } from "formik";
 import { useState } from "react";
-import { CategoryIcon, iconList } from "./icon";
 
 export const IconModal = () => {
     const [showModal, setShowModal] = useState(false);
@@ -12,7 +12,7 @@ export const IconModal = () => {
     return (
         <div>
             <div
-                className="flex cursor-pointer"
+                className="flex cursor-pointer  w-10 h-10 rounded-full bg-blue-100  text-[darkblue]  justify-center items-center"
                 onClick={() => setShowModal(true)}
             >
                 <CategoryIcon icon={selectedIcon} />
@@ -32,7 +32,7 @@ export const IconModal = () => {
                                     formik.setFieldValue("icon", icon);
                                     setShowModal(false);
                                 }}
-                                className="cursor-pointer"
+                                className="cursor-pointer text-[darkblue] w-10 h-10 rounded-full bg-blue-100  flex justify-center items-center"
                             >
                                 <CategoryIcon icon={icon} />
                             </div>
