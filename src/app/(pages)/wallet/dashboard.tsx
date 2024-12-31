@@ -4,6 +4,7 @@ import { Alert } from "@/components/common/alert";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useCallback, useState } from "react";
 import { WalletForm } from "./form";
+import { WalletTransfer } from "./transfer";
 import { WalletList } from "./wallet";
 
 export interface WalletsProps {
@@ -20,6 +21,7 @@ export interface WalletsProps {
 
 export const Dashboard = () => {
     const [showForm, setShowForm] = useState<boolean>(false);
+    const [showTransferFrom, setShowTransferFrom] = useState<boolean>(false);
     const [dataToEdit, setDataToEdit] = useState<any>();
 
     const { data: wallets, refetch } = useQuery({
@@ -29,6 +31,7 @@ export const Dashboard = () => {
 
     const handleOnSubmitForm = () => {
         setShowForm(false);
+        setShowTransferFrom(false);
         setDataToEdit(null);
         refetch();
     };
@@ -38,6 +41,7 @@ export const Dashboard = () => {
             setShowForm(true);
             setDataToEdit(null);
         } else {
+            setShowTransferFrom(false);
             setShowForm(false);
             setDataToEdit(null);
         }
@@ -84,7 +88,14 @@ export const Dashboard = () => {
             <div className="panel h-full">
                 <div className="mb-5 flex items-center justify-between dark:text-white-light">
                     <h5 className="text-lg font-semibold">Wallets</h5>
-                    <div>
+                    <div className="flex gap-2 ">
+                        <WalletTransfer
+                            showModal={showTransferFrom}
+                            setShowModal={() =>
+                                setShowTransferFrom(!showTransferFrom)
+                            }
+                            onSubmitForm={handleOnSubmitForm}
+                        />
                         <WalletForm
                             data={dataToEdit}
                             showModal={showForm}

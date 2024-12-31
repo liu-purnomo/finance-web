@@ -118,10 +118,17 @@ import {
     PiHospitalFill,
     PiPhoneCallFill,
     PiPopcornBold,
+    PiSignInBold,
+    PiSignOutBold,
 } from "react-icons/pi";
 import { RiBeerFill, RiPaintBrushFill, RiScissors2Fill } from "react-icons/ri";
 import { SiBuymeacoffee } from "react-icons/si";
-import { TbHomeFilled, TbPerfume, TbPizzaFilled } from "react-icons/tb";
+import {
+    TbHomeFilled,
+    TbPerfume,
+    TbPizzaFilled,
+    TbTransfer,
+} from "react-icons/tb";
 import {
     TiDeviceTablet,
     TiPlane,
@@ -280,6 +287,9 @@ export const iconList = [
     "hiking",
     "beach",
     "campfire",
+    "inbound",
+    "outbound",
+    "transfer",
 ];
 
 type IconName = (typeof iconList)[number];
@@ -657,6 +667,15 @@ const CategoryIcon = ({
 
         case "campfire":
             return <GiCampfire className={className} />;
+
+        case "inbound":
+            return <PiSignInBold className={className} />;
+
+        case "outbound":
+            return <PiSignOutBold className={className} />;
+
+        case "transfer":
+            return <TbTransfer className={className} />;
 
         default:
             return <GiWallet className={className} />;

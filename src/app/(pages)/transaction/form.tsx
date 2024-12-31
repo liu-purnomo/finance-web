@@ -92,6 +92,7 @@ export const FormCreate = ({
         walletId: Yup.string().required().label("Wallet"),
         amount: Yup.string().required().label("Amount"),
         categoryId: Yup.string().required().label("Category"),
+        description: Yup.string().required().label("Description"),
     });
 
     return (
@@ -191,6 +192,8 @@ export const FormCreate = ({
                                 name="description"
                                 label="Description"
                                 type="textarea"
+                                required
+                                row={1}
                             />
 
                             <Field

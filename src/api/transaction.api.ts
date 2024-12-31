@@ -45,6 +45,17 @@ export class TransactionApi {
         return data;
     }
 
+    static async transfer(
+        formValues: FromCreateTransfer,
+    ): Promise<DefaultSuccessResponse> {
+        const { data } = await instance({
+            method: "POST",
+            url: "api/v1/finance/transaction/transfer",
+            data: formValues,
+        });
+        return data;
+    }
+
     static async update(formValues: FormCreateTransaction): Promise<any> {
         const { data } = await instance({
             method: "PUT",

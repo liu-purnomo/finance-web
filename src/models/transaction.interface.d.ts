@@ -7,6 +7,13 @@ interface FormCreateTransaction {
     category: string;
 }
 
+interface FromCreateTransfer {
+    originWalletId: string;
+    destinationWalletId: string;
+    amount: number;
+    transactionDate: string;
+}
+
 interface Transaction {
     category: string;
     icon: string;
