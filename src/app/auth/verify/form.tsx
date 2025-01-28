@@ -60,7 +60,7 @@ const AuthVerifyForm = () => {
                 <Button
                     type="button"
                     onClick={() => router.push("/auth/login")}
-                    label="Login,"
+                    label="Login"
                 />
             </div>
         </div>

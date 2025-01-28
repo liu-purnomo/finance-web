@@ -1,6 +1,6 @@
 "use client";
 
-import { TransactionApi } from "@/api";
+import { BudgetApi } from "@/api";
 import Table from "@/components/common/table";
 import { DateFormat } from "@/utilities/functions/format/date";
 import { NumberFormat } from "@/utilities/functions/format/number";
@@ -28,8 +28,8 @@ export const DataTable = () => {
     } = useMemoQuery();
 
     const { data, refetch, isRefetching, isLoading, isError } = useQuery({
-        queryKey: ["CategoriesData", memoQuery],
-        queryFn: () => TransactionApi.index(memoQuery),
+        queryKey: ["BudgetsData", memoQuery],
+        queryFn: () => BudgetApi.index(memoQuery),
     });
 
     const [showForm, setShowForm] = useState<boolean>(false);
@@ -56,17 +56,8 @@ export const DataTable = () => {
         }, 10);
     }, []);
 
-    const columns = useMemo<MRT_ColumnDef<Transaction>[]>(
+    const columns = useMemo<MRT_ColumnDef<Budget>[]>(
         () => [
-            {
-                accessorKey: "transactionDate",
-                header: "Date",
-                Cell: ({ row }) => (
-                    <div className="">
-                        {DateFormat.dmY(row?.original?.transactionDate)}
-                    </div>
-                ),
-            },
             {
                 accessorKey: "category",
                 header: "Category",
@@ -75,25 +66,35 @@ export const DataTable = () => {
                 ),
             },
             {
-                accessorKey: "type",
-                header: "Type",
+                accessorKey: "description",
+                header: "Description",
                 Cell: ({ row }) => (
-                    <div className="">{row?.original?.Category?.type}</div>
+                    <div className="truncate">{row?.original?.description}</div>
                 ),
             },
             {
-                accessorKey: "wallet",
-                header: "Wallet",
+                accessorKey: "periodStart",
+                header: "From",
                 Cell: ({ row }) => (
-                    <div className="">{row?.original?.Wallet?.name}</div>
+                    <div className="">
+                        {DateFormat.dmY(row?.original?.periodStart)}
+                    </div>
+                ),
+            },
+            {
+                accessorKey: "periodEnd",
+                header: "To",
+                Cell: ({ row }) => (
+                    <div className="">
+                        {DateFormat.dmY(row?.original?.periodEnd)}
+                    </div>
                 ),
             },
             {
                 accessorKey: "amount",
                 header: "Amount",
                 Cell: ({ row }) => (
-                    <div className="flex justify-between">
-                        <div>{row?.original?.Wallet?.currency}</div>
+                    <div className="flex justify-end">
                         <div>
                             {NumberFormat.amount(
                                 Number(row?.original?.amount || 0),
@@ -116,7 +117,7 @@ export const DataTable = () => {
             />
 
             <Table
-                tableName="Transaction"
+                tableName="Budget"
                 columns={columns as any}
                 data={data?.data}
                 customButton={

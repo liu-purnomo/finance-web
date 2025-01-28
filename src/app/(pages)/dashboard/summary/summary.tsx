@@ -36,9 +36,11 @@ export const Summary = () => {
 
     return (
         <div className="panel w-full">
-            <div className="flex items-center justify-between mb-5 gap-5">
-                <h5 className="text-lg font-semibold">Summary</h5>
-                <div className="flex items-center gap-2">
+            <div className="flex flex-col md:flex-row items-center justify-between mb-5 gap-5">
+                <h5 className="text-lg hidden md:block font-semibold">
+                    Summary
+                </h5>
+                <div className="flex flex-col md:flex-row items-center gap-2">
                     {dateRange === "custom-range" ? (
                         <div className="">
                             <Flatpickr
@@ -63,9 +65,9 @@ export const Summary = () => {
                         </div>
                     )}
                     <div>
-                        <div className="flex items-center">
+                        <div className="flex md:justify-between items-center">
                             <div
-                                className={`border border-primary hover:bg-primary hover:text-white py-1 w-28 cursor-pointer rounded-l-md text-center ${dateRange === "year" ? "bg-primary text-white" : ""}`}
+                                className={`border border-primary hover:bg-primary hover:text-white py-1 px-2  cursor-pointer rounded-l-md text-center ${dateRange === "year" ? "bg-primary text-white" : ""}`}
                                 onClick={() => {
                                     setDateRange("year");
                                     setStartDate(yearlyRange.start);
@@ -75,7 +77,7 @@ export const Summary = () => {
                                 Yearly
                             </div>
                             <div
-                                className={`border border-primary hover:bg-primary hover:text-white py-1 w-28 cursor-pointer text-center ${dateRange === "month" ? "bg-primary text-white" : ""}`}
+                                className={`border border-primary hover:bg-primary hover:text-white py-1 px-2  cursor-pointer text-center ${dateRange === "month" ? "bg-primary text-white" : ""}`}
                                 onClick={() => {
                                     setDateRange("month");
                                     setStartDate(monthlyRange.start);
@@ -85,7 +87,7 @@ export const Summary = () => {
                                 Monthly
                             </div>
                             <div
-                                className={`border border-primary hover:bg-primary hover:text-white py-1 w-28 cursor-pointer text-center ${dateRange === "week" ? "bg-primary text-white" : ""}`}
+                                className={`border border-primary hover:bg-primary hover:text-white py-1 px-2  cursor-pointer text-center ${dateRange === "week" ? "bg-primary text-white" : ""}`}
                                 onClick={() => {
                                     setDateRange("week");
                                     setStartDate(weeklyRange.start);
@@ -95,7 +97,7 @@ export const Summary = () => {
                                 Weekly
                             </div>
                             <div
-                                className={`border border-primary rounded-r-md hover:bg-primary hover:text-white py-1 w-28 cursor-pointer text-center ${dateRange === "custom-range" ? "bg-primary text-white" : ""}`}
+                                className={`border border-primary rounded-r-md hover:bg-primary hover:text-white py-1 px-2  cursor-pointer text-center ${dateRange === "custom-range" ? "bg-primary text-white" : ""}`}
                                 onClick={() => {
                                     setDateRange("custom-range");
                                 }}
@@ -119,7 +121,7 @@ export const Summary = () => {
                     return (
                         <div key={index}>
                             <div className="flex items-center justify-between">
-                                <div className="text-3xl font-bold mb-5">
+                                <div className="text-2xl font-bold mb-5">
                                     {wallet.currency}
                                 </div>
                                 <div>
@@ -130,9 +132,9 @@ export const Summary = () => {
                                         className={`cursor-pointer ${showBalance ? "text-success" : "text-danger"}`}
                                     >
                                         {showBalance ? (
-                                            <EyeIcon className="h-8 w-8" />
+                                            <EyeIcon className="h-5 w-5" />
                                         ) : (
-                                            <EyeSlashIcon className="h-8 w-8" />
+                                            <EyeSlashIcon className="h-5 w-5" />
                                         )}
                                     </div>
                                 </div>

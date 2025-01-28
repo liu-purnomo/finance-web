@@ -25,7 +25,7 @@ export default function DefaultLayout({
 
     useEffect(() => {
         if (session.status === "unauthenticated") {
-            router.replace("/auth/login?error=Login First");
+            router.replace("/auth/login");
         }
 
         if (session.status === "authenticated") {
