@@ -42,4 +42,28 @@ export class AuthApi {
         });
         return data;
     }
+
+    static async forgotPassword(formValues: {
+        email: string;
+    }): Promise<DefaultSuccessResponse> {
+        const { data } = await instance({
+            method: "POST",
+            url: "api/v1/auth/forgot-password",
+            data: formValues,
+        });
+        return data;
+    }
+
+    static async resetPassword(formValues: {
+        email: string;
+        code: string;
+        password: string;
+    }): Promise<DefaultSuccessResponse> {
+        const { data } = await instance({
+            method: "POST",
+            url: "api/v1/auth/reset-password",
+            data: formValues,
+        });
+        return data;
+    }
 }

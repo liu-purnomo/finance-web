@@ -22,14 +22,18 @@ export default function Table({
     tableOptions,
     deleteAction,
     customButton,
+    customLeftButton,
     tableName,
+    rowClickAction,
 }: {
     columns: MRT_ColumnDef<any>[];
     data: any[];
     tableOptions?: TableOptions;
     deleteAction?: (payload: string[]) => Promise<void>;
     customButton?: React.ReactNode;
+    customLeftButton?: React.ReactNode;
     tableName?: string;
+    rowClickAction?: (row: any) => void;
 }) {
     const globalTheme = useMantineTheme();
     const isDark = useSelector(
@@ -47,6 +51,21 @@ export default function Table({
         enableStickyFooter: true,
         enableRowSelection: false,
         paginationDisplayMode: "pages",
+        mantineTableBodyRowProps: (props) => {
+            if (rowClickAction) {
+                return {
+                    sx: {
+                        cursor: "pointer",
+                    },
+                    onClick: () => rowClickAction(props.row),
+                };
+            }
+            return {
+                sx: {
+                    cursor: "default",
+                },
+            };
+        },
         enablePinning: true,
         mantinePaginationProps: {
             radius: "xl",
@@ -78,6 +97,7 @@ export default function Table({
                 <div className="flex justify-between py-2 bg-white dark:bg-black border-b">
                     <div>
                         <div className="ms-4 flex items-center gap-2">
+                            {customLeftButton}
                             {tableName && (
                                 <div className="text-lg pt-1 font-bold">
                                     {tableName}
