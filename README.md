@@ -7,7 +7,7 @@ This is the frontend of a Personal Finance Application built using **Next.js** a
 - **User Authentication**: Register and log in securely.
 - **Wallet Management**: Manage multiple wallets with individual balances and currencies.
 - **Transaction Tracking**: Record income and expenses for detailed financial analysis.
-- **Budget Goals**: Create and track budgets by category and timeframe.
+- **Budget Goals**: Create and track budgets by category and time frame.
 - **Saving Goals**: Set and monitor saving targets to achieve your financial aspirations.
 
 ## API Integration
